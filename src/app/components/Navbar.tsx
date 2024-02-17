@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <div className="w-full flex justify-between items-center">
         <div 
-          className="flex flex-col items-center justify-center w-[40px] h-[40px] gap-y-[5px] bg-orange-300 p-2 rounded-full cursor-pointer hover:contrast-75 transition active:scale-95"
+          className="flex flex-col items-center justify-center w-[40px] h-[40px] gap-y-[5px] bg-orange-300 p-2 rounded-full cursor-pointer sm:hover:contrast-75 transition active:scale-95"
           onClick={() => setTogglaNavbar(!toggleNavbar)}>
           <span className="border-t-2 border-orange-700 rounded-full w-full"></span>
           <span className="border-t-2 border-orange-700 rounded-full w-full"></span>

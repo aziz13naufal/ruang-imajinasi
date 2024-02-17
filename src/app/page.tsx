@@ -27,15 +27,15 @@ const Home = () => {
             {/* category item */}
             <div className="flex w-full items-center gap-6">
               <div className="flex flex-col gap-3 items-center transition active:scale-110">
-                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 hover:border-pink-500 cursor-pointer rounded-full object-cover" />
+                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 sm:hover:border-pink-500 cursor-pointer rounded-full object-cover" />
                 <div className="">Fantasi</div>
               </div>
               <div className="flex flex-col gap-3 items-center transition active:scale-110">
-                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 hover:border-pink-500 cursor-pointer rounded-full object-cover" />
+                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 sm:hover:border-pink-500 cursor-pointer rounded-full object-cover" />
                 <div className="">Fantasi</div>
               </div>
               <div className="flex flex-col gap-3 items-center transition active:scale-110">
-                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 hover:border-pink-500 cursor-pointer rounded-full object-cover" />
+                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 sm:hover:border-pink-500 cursor-pointer rounded-full object-cover" />
                 <div className="">Fantasi</div>
               </div>
             </div>

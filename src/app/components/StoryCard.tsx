@@ -5,7 +5,7 @@ import CommentIcon from './icon/comment'
 const StoryCard = () => {
   return (
     <div>
-        <div className="p-2 border-2 border-zinc-700 hover:border-pink-500 rounded-md cursor-pointer smooth-animation hover:ring-offset-2 active:ring-2 active:ring-orange-700">
+        <div className="p-2 border-2 border-zinc-700 sm:hover:border-pink-500 rounded-md cursor-pointer smooth-animation hover:ring-offset-2 active:ring-2 active:ring-orange-700">
             <img src="/images/eifel.png" alt="story-card" className="bg-zinc-300 h-36 w-full object-cover rounded-[4px]" />
             <div className="mt-2 w-full flex justify-between">
                 <div className="">The Eiffel Tower</div>

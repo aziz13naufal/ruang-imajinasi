@@ -5,15 +5,15 @@ import ThumbsUpIcon from "./components/icon/thumbs-up"
 import CommentIcon from "./components/icon/comment"
 import LoveIcon from "./components/icon/love"
 import StoryCard from "./components/StoryCard"
+import React from 'react';
+import dynamic from 'next/dynamic';
 
 const Home = () => {
   return (
     <div className="w-full h-full p-4 sm:p-6 flex justify-center bg-bg-primary relative">
       <section className="w-full lg:w-[800px] h-full relative">
-        <header id="header">
           <Navbar />
           <Header />
-        </header>
 
         <main className="mt-20 flex flex-col w-full gap-y-20">
           {/* category */}
@@ -26,16 +26,16 @@ const Home = () => {
 
             {/* category item */}
             <div className="flex w-full items-center gap-6">
-              <div className="flex flex-col gap-3 items-center">
-                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 hover:border-pink-500 smooth-animation cursor-pointer rounded-full object-cover" />
+              <div className="flex flex-col gap-3 items-center transition active:scale-110">
+                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 hover:border-pink-500 cursor-pointer rounded-full object-cover" />
                 <div className="">Fantasi</div>
               </div>
-              <div className="flex flex-col gap-3 items-center">
-                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 hover:border-pink-500 smooth-animation cursor-pointer rounded-full object-cover" />
+              <div className="flex flex-col gap-3 items-center transition active:scale-110">
+                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 hover:border-pink-500 cursor-pointer rounded-full object-cover" />
                 <div className="">Fantasi</div>
               </div>
-              <div className="flex flex-col gap-3 items-center">
-                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 hover:border-pink-500 smooth-animation cursor-pointer rounded-full object-cover" />
+              <div className="flex flex-col gap-3 items-center transition active:scale-110">
+                <img src="/images/eifel.png" alt="category" className="w-20 h-20 border-2 border-zinc-700 hover:border-pink-500 cursor-pointer rounded-full object-cover" />
                 <div className="">Fantasi</div>
               </div>
             </div>

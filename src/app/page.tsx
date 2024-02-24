@@ -54,7 +54,7 @@ const Home = () => {
     const getDataCategory = async () => {
       try {
         setIsLoadingCategory(true)
-        const {data} = await getData('/category', { page: page, limit: limit })
+        const {data} = await getData('/category')
         setCategory(data.categories.items)
         setIsLoadingCategory(false)
       } catch (error) {
@@ -62,7 +62,7 @@ const Home = () => {
       }
     }
     getDataCategory()
-  }, [page, limit, indicator])
+  }, [])
 
   const handleMorePage = () => {
     setLimit(limit +  3)
@@ -81,6 +81,8 @@ const Home = () => {
       id, title
     })
   }
+
+  // console
 
   return (
     <div className="w-full h-full p-4 sm:p-6 flex justify-center bg-bg-primary relative">
@@ -147,15 +149,14 @@ const Home = () => {
               </div>
 
               {/* see more */}
-              {storyPage?.total_pages != 1 && 
-               storyPage?.current_page != storyPage?.total_pages &&
-              story.length >= 1 && (<>
+              {story.length >= 1 && (<>
                 <div className="w-full flex justify-center mt-6 gap-3">
-                  <button className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95"
+                  <button className={`bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95 ${storyPage?.total_pages != 1 && 
+               storyPage?.current_page != storyPage?.total_pages ? '' : 'hidden'}`}
                   onClick={handleMorePage}
                   >Muat Lebih</button>
 
-                  {limit > 5 && (
+                  {storyPage?.total_pages > 1 && limit > 5 && (
                     <button className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95"
                     onClick={handleLessPage}
                     >Muat Sedikit</button>

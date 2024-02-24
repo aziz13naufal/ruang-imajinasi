@@ -10,7 +10,6 @@ import HomeIcon from "./icon/home"
 
 const Navbar = () => {
   const pathname = usePathname()
-  console.log(pathname)
   const [toggleNavbar, setToggleNavbar] = useState<boolean>(false)
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -29,7 +28,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full flex justify-between items-center">
-        <button className="bg-pink-300 rounded-md px-3 py-[3px] border-2 border-blue-500 text-blue-500 cursor-pointer sm:hover:contrast-75 transition active:scale-95"
+        <button className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95"
         onClick={() => setToggleNavbar(!toggleNavbar)}
         >Menu</button>
 

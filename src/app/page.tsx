@@ -23,8 +23,10 @@ const Home = () => {
   const [isLoadingStory, setIsLoadingStory] = useState<boolean>(false)
   const [isLoadingCategory, setIsLoadingCategory] = useState<boolean>(false)
   const [indicator, setIndicator] = useState<boolean>(false)
+  const [searchToggle, setSearchToggle] = useState<boolean>(false)
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(5)
+  const [search, setSearch] = useState("")
   
   const [story, setStory] = useState<any[]>([])
   const [storyPage, setStoryPage] = useState<any>("")
@@ -38,7 +40,7 @@ const Home = () => {
     const getDataStory = async () => {
       try {
         setIsLoadingStory(true)
-        const {data} = await getData('/story', { page: page, limit: limit, category_id: categoryData?.id })
+        const {data} = await getData('/story', { page: page, limit: limit, category_id: categoryData?.id, q: search })
         setStory(data.stories.items)
         setStoryPage(data.pagination)
         setIsLoadingStory(false)
@@ -47,7 +49,7 @@ const Home = () => {
       }
     }
     getDataStory()
-  }, [page, limit, indicator, categoryData])
+  }, [page, limit, indicator, categoryData, search])
 
   // get category
   useEffect(() => {
@@ -123,7 +125,7 @@ const Home = () => {
             {/* best short story title */}
             <div className="w-full flex items-center justify-between">
               <div className="">Rekomendasi Cerpen {isCategoryClicked ? categoryData?.title : "Untukmu"}</div>
-                {isCategoryClicked && (
+                {isCategoryClicked ? (
                   <button type='button' className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95 whitespace-nowrap"
                   onClick={() => {
                     setIsCategoryClicked(false)
@@ -131,8 +133,18 @@ const Home = () => {
                     setLimit(5)
                   }}
                   >Lihat Semua</button>
+                ) : (
+                  <button type="button" className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95 whitespace-nowrap"
+                  onClick={() => setSearchToggle(!searchToggle)}>
+                    Cari
+                  </button>
                 )}
             </div>
+
+            <div className={`search-input ${!searchToggle || isCategoryClicked && "hidden"}`}>
+              <input type="text" className="bg-bg-primary border border-orange-700 w-full rounded-md px-3 py-1 text-base outline-none" placeholder="Cari judul cerpen.." onChange={(e: any) => setSearch(e.target.value)} onFocus={(e) => console.log(e)} />
+            </div>
+
             {isLoadingStory ? (
               <div className="w-full h-7 relative justify-center">
                   <div className="loading-animation mx-auto" />

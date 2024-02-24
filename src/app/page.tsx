@@ -90,7 +90,7 @@ const Home = () => {
         <main className="mt-20 flex flex-col w-full gap-y-20">
           {/* category */}
           <div className="flex flex-col gap-y-6">
-
+            <div className="">Pilih Kategori Cerpen Favoritmu</div>
             {/* category item */}
             <div className="flex w-full items-center gap-4 overflow-x-auto pt-3">
               {!isLoadingCategory && category?.map((item: any, index: any) => {

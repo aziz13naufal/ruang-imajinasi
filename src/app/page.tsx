@@ -40,9 +40,17 @@ const Home = () => {
     const getDataStory = async () => {
       try {
         setIsLoadingStory(true)
-        const {data} = await getData('/story', { page: page, limit: limit, category_id: categoryData?.id, q: search })
-        setStory(data.stories.items)
-        setStoryPage(data.pagination)
+        if(search == '') {
+          const {data} = await getData('/story', { page: page, limit: limit, category_id: categoryData?.id, q: search })
+          setStory(data.stories.items)
+          setStoryPage(data.pagination)
+        } else {
+          setTimeout(async () => {
+            const {data} = await getData('/story', { page: page, limit: limit, category_id: categoryData?.id, q: search })
+            setStory(data.stories.items)
+            setStoryPage(data.pagination)
+          }, 300);
+        }
         setIsLoadingStory(false)
       } catch (error) {
         setIsLoadingStory(false)
@@ -78,7 +86,7 @@ const Home = () => {
 
   const handleClickCategory = (id?: string, title?: string) => {
     setIsCategoryClicked(true)
-    console.log(id, title)
+    setSearch('')
     setCategoryData({
       id, title
     })
@@ -135,14 +143,17 @@ const Home = () => {
                   >Lihat Semua</button>
                 ) : (
                   <button type="button" className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95 whitespace-nowrap"
-                  onClick={() => setSearchToggle(!searchToggle)}>
+                  onClick={() => {
+                    setSearchToggle(!searchToggle)
+                    setSearch('')
+                  }}>
                     Cari
                   </button>
                 )}
             </div>
 
-            <div className={`search-input ${!searchToggle || isCategoryClicked && "hidden"}`}>
-              <input type="text" className="bg-bg-primary border border-orange-700 w-full rounded-md px-3 py-1 text-base outline-none" placeholder="Cari judul cerpen.." onChange={(e: any) => setSearch(e.target.value)} onFocus={(e) => console.log(e)} />
+            <div className={`search-input ${searchToggle == false && "hidden"} ${isCategoryClicked && 'hidden'}`}>
+              <input type="text" className="bg-bg-primary border border-orange-700 w-full rounded-md px-3 py-1 text-base outline-none" placeholder="Cari judul cerpen.." onChange={(e: any) => setSearch(e.target.value)}/>
             </div>
 
             {isLoadingStory ? (

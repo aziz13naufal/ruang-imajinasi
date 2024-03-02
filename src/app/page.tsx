@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Header from "./components/Header"
-import Navbar from "./components/Navbar"
+import Navbar from "./components/Navbar2"
 import ThumbsUpIcon from "./components/icon/thumbs-up"
 import CommentIcon from "./components/icon/comment"
 import LoveIcon from "./components/icon/love"

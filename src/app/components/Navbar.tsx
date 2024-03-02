@@ -1,66 +1,42 @@
 "use client"
-import { useEffect, useRef, useState } from "react"
-import EnterIcon from "./icon/enter"
-import LogoutIcon from "./icon/logout"
-import ProfileCircleIcon from "./icon/profile-circle"
-import Link from "next/link"
-import PenIcon from "./icon/pen"
-import { usePathname } from 'next/navigation'
-import HomeIcon from "./icon/home"
+import React, { useEffect, useRef, useState } from 'react'
+import Button from './Button'
 
 const Navbar = () => {
-  const pathname = usePathname()
-  const [toggleNavbar, setToggleNavbar] = useState<boolean>(false)
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
-   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setToggleNavbar(false);
-      }
-    };
+    const [toggleNavbar, setToggleNavbar] = useState<boolean>(false);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    return (
+        <div className="w-full flex justify-between border-b h-16 items-center px-7 fixed top-0 bg-white z-10">
+            <div className="left-side flex gap-7">
+                <div className="logo-title flex">
+                    <div className="text-pink-600">Ruang</div>
+                    <div className="text-blue-600">Cerpen</div>
+                </div>
+                <div className="menu hidden md:flex gap-5 items-center">
+                    <div className="text-sm">Beranda</div>
+                    <div className="text-sm">Tentang Kami</div>
+                </div>
+            </div>
+            <div className="right-side items-center">
+                <Button content={'Masuk'} className={'hidden md:block'} />
 
-  return (
-    <div className="w-full flex justify-between items-center">
-        <button className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95"
-        onClick={() => setToggleNavbar(!toggleNavbar)}
-        >Menu</button>
+                <div className="flex md:hidden flex-col gap-[6px] w-6 cursor-pointer" onClick={() => setToggleNavbar(!toggleNavbar)}>
+                    <span className='w-full h-[3px] bg-zinc-700 rounded-full'></span>
+                    <span className='w-full h-[3px] bg-zinc-700 rounded-full'></span>
+                    <span className='w-full h-[3px] bg-zinc-700 rounded-full'></span>
+                </div>
 
-        <Link href={'/pages/create-story'} className={`bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95 flex items-center gap-x-[6px] ${pathname.includes('/pages/read') && 'hidden'}`}>
-          <PenIcon />Buat Cerpen
-        </Link>
-
-        {/* dropdown content */}
-        <div ref={dropdownRef} className={`absolute top-0 left-0 mt-12 flex flex-col bg-orange-300 border-2 border-orange-700 w-fit h-fit z-20 rounded-md ${!toggleNavbar && 'hidden'}`}>
-          {/* <div className="flex items-center gap-2">
-            <div className="mt-[1px]"><EnterIcon /></div>
-            <div className="text-orange-700">Login</div>
-          </div> */}
-          <Link href={'/'} className={`flex items-center gap-2 cursor-pointer bg-orange-300 px-2 py-1 sm:hover:contrast-75 rounded-md smooth-animation ${pathname == '/' && 'hidden'}`}>
-            <div className=""><HomeIcon /></div>
-            <div className="text-orange-700">Halaman Utama</div>
-          </Link>
-          {/* <div className="flex items-center gap-2 cursor-pointer bg-orange-300 px-2 py-1 sm:hover:contrast-75 rounded-md smooth-animation">
-            <div className="bg-orange-200 border border-orange-700 w-[26px] h-[26px] rounded-full"></div>
-            <div className="text-orange-700">Aziz Naufal</div>
-          </div> */}
-          <div className="flex items-center gap-2 cursor-pointer bg-orange-300 px-2 py-1 sm:hover:contrast-75 rounded-md smooth-animation">
-            <div className=""><ProfileCircleIcon /></div>
-            <div className="text-orange-700">Profil</div>
-          </div>
-          <div className="flex items-center gap-2 cursor-pointer bg-orange-300 px-2 py-1 sm:hover:contrast-75 rounded-md smooth-animation">
-            <div className=""><LogoutIcon /></div>
-            <div className="text-orange-700">Logout</div>
-          </div>
+                <div className={`fixed top-0 right-0 mt-16 w-[60%] h-dvh bg-white z-20 border-l flex flex-col gap-2 md:hidden ${toggleNavbar && 'hidden'}`}>
+                    <div className="flex flex-col">
+                        <div className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Beranda</div>
+                        <div className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Tentang Kami</div>
+                        <Button content={'Masuk'} className="w-full rounded-none hover:bg-blue-600 smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)} />
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
   )
 }
-
 export default Navbar
+

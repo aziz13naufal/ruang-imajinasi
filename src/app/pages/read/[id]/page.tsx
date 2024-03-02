@@ -2,7 +2,7 @@
 import React, { Component, useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import Navbar from '@/app/components/Navbar';
+import Navbar from '@/app/components/Navbar2';
 import UserIcon from '@/app/components/icon/user';
 import CalendarIcon from '@/app/components/icon/calendar';
 import { useSearchParams } from 'next/navigation';

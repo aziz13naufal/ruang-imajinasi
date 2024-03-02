@@ -35,6 +35,8 @@ const Home = () => {
     const [paginationData, setPaginationData] = useState<any>({})
     const [search, setSearch] = useState<any>("");
 
+    console.log(paginationData)
+
     const [categoryData, setCategoryData] = useState<any>();
     const [storyData, setStoryData] = useState<any>();
     
@@ -114,6 +116,7 @@ const Home = () => {
                         onClick={() => {
                             setCategoryId(item?.id)
                             setCategoryTitle(item?.name)
+                            setLimit(4)
                         }}>
                             <img src="/images/eifel.png" alt="category" className='w-full h-full object-cover' />
                             <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-gradient-to-t bg-[rgba(0,0,0,0.13)] hover:opacity-0 cursor-pointer text-white smooth-animation">{item?.name}</div>
@@ -163,7 +166,7 @@ const Home = () => {
                                 <StoryCardSkeleton />
                             </>)}
                             {!isLoadingStory && storyData && (
-                            <div className={`w-full h-[190px] flex flex-col gap-3 items-center justify-center`}>
+                            <div className={`w-full h-[190px] flex flex-col gap-3 items-center justify-center ${paginationData?.totalPages <= 1 && 'hidden'}`}>
                                 <button className={`w-28 h-fit rounded-md bg-blue-500 text-white px-4 py-2 drop-shadow text-sm outline-none 
                                 ${paginationData?.limit >= paginationData?.totalItems && 'hidden'}
                                 `}

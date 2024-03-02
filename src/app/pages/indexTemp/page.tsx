@@ -163,7 +163,7 @@ const Home = () => {
                                 <StoryCardSkeleton />
                             </>)}
                             {!isLoadingStory && storyData && (
-                            <div className="w-full h-[190px] flex flex-col gap-3 items-center justify-center">
+                            <div className={`w-full h-[190px] flex flex-col gap-3 items-center justify-center`}>
                                 <button className={`w-28 h-fit rounded-md bg-blue-500 text-white px-4 py-2 drop-shadow text-sm outline-none 
                                 ${paginationData?.limit >= paginationData?.totalItems && 'hidden'}
                                 `}

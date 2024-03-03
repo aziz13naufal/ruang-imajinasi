@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
 import Button from './Button'
+import Link from 'next/link';
 
 const Navbar = () => {
 
@@ -14,7 +15,7 @@ const Navbar = () => {
                     <div className="text-blue-600">Cerpen</div>
                 </div>
                 <div className="menu hidden md:flex gap-5 items-center">
-                    <div className="text-sm">Beranda</div>
+                    <Link href="/pages/indexTemp" className="text-sm">Beranda</Link>
                     <div className="text-sm">Tentang Kami</div>
                 </div>
             </div>
@@ -29,7 +30,7 @@ const Navbar = () => {
 
                 <div className={`fixed top-0 right-0 mt-16 w-[60%] h-dvh bg-white z-20 border-l flex flex-col gap-2 md:hidden ${!toggleNavbar && 'hidden'}`}>
                     <div className="flex flex-col">
-                        <div className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Beranda</div>
+                        <Link href="/pages/indexTemp" className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Beranda</Link>
                         <div className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Tentang Kami</div>
                         <Button content={'Masuk'} className="w-full rounded-none hover:bg-blue-600 smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)} />
                     </div>

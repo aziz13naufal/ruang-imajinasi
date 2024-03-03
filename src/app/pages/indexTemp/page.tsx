@@ -21,6 +21,7 @@ import StoryCard from '@/app/components/StoryCard'
 import StoryCardSkeleton from '@/app/components/StoryCardSkeleton'
 import Button from '@/app/components/Button'
 import Navbar from '@/app/components/Navbar'
+import Link from 'next/link'
 
 
 const Home = () => {
@@ -184,9 +185,9 @@ const Home = () => {
                     <div className="w-full flex flex-col gap-3">
                         <div className="text-sm">Ingin Membuat Cerita juga?</div>
 
-                        <div className="w-full flex flex-col items-center justify-center bg-blue-200 border-2 border-blue-500 border-dashed rounded-md py-10 gap-6">
+                        <div className="w-full flex flex-col items-center justify-center bg-blue-200 border-2 border-blue-500 border-dashed rounded-md py-10 gap-6 p-4">
                             <div className="text-center text-base md:text-lg">Ayo Buat Cerita dan Tunjukkan kepada Orang Lain!</div>
-                            <button className="h-fit rounded-md bg-blue-500 text-white px-4 py-2 drop-shadow text-sm outline-none">Buat Cerita Sekarang</button>
+                            <Link href={'/pages/create-story'} className="h-fit rounded-md bg-blue-500 text-white px-4 py-2 drop-shadow text-sm outline-none">Buat Cerita Sekarang</Link>
                         </div>
                     </div>
                 </div>

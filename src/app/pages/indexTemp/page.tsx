@@ -22,6 +22,7 @@ import StoryCardSkeleton from '@/app/components/StoryCardSkeleton'
 import Button from '@/app/components/Button'
 import Navbar from '@/app/components/Navbar'
 import Link from 'next/link'
+import Footer from '@/app/components/Footer'
 
 
 const Home = () => {
@@ -192,6 +193,10 @@ const Home = () => {
                     </div>
                 </div>
 
+            </div>
+
+            <div className="w-full border-t">
+                <Footer />
             </div>
         </div>
   )

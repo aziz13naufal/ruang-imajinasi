@@ -31,8 +31,8 @@ export default function CKeditorInput({onChange, editorLoaded, name, value}: CKe
           }}
           config={{
             toolbar: [
-              "heading",
-              "|",
+              // "heading",
+              // "|",
               "undo",
               "redo",
               "|",

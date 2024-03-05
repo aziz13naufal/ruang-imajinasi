@@ -168,11 +168,12 @@ const Home = () => {
                                 <StoryCardSkeleton />
                             </>)}
                             {!isLoadingStory && storyData && (
-                            <div className={`w-full h-[190px] flex flex-col gap-3 items-center justify-center ${paginationData?.totalPages <= 1 && 'hidden'}`}>
+                            <div className={`w-full h-[190px] flex flex-col gap-3 items-center justify-center ${paginationData?.totalPages < 1 && 'hidden'}`}>
                                 <button className={`w-28 h-fit rounded-md bg-blue-500 text-white px-4 py-2 drop-shadow text-sm outline-none 
                                 ${paginationData?.limit >= paginationData?.totalItems && 'hidden'}
                                 `}
                                 onClick={() => setLimit(limit + 4)}>Muat Lebih</button>
+                                
                                 <button className={`w-28 h-fit rounded-md bg-pink-500 text-white px-4 py-2 drop-shadow text-sm outline-none 
                                 ${paginationData?.limit <= 4 && 'hidden'}
                                 `}
@@ -195,7 +196,7 @@ const Home = () => {
 
             </div>
 
-            <div className="w-full border-t">
+            <div className="">
                 <Footer />
             </div>
         </div>

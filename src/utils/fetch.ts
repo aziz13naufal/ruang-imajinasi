@@ -12,3 +12,15 @@ export async function getData(url: string, params?: any, responseType = '', req?
         responseType: responseType as any,
     });
 }
+
+export async function postData(url: string, payload: any, formData = false, req?: any) {
+    return await instance.post(`${url}`, {
+        headers: {
+            // Authorization: `Bearer ${token}`,
+            // ApiKey: config.API_KEY,
+            'Content-Type': formData ? 'multipart/form-data' : 'application/json',
+        },
+        body: JSON.stringify(payload)
+        
+    })
+}

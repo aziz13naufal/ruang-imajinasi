@@ -59,12 +59,7 @@ const CreateStory = () => {
     const handleSaveAction = async (e: any) => {
         e.preventDefault()
         try {
-            // await postData('/story', form)
-            await axios.post('https://cerpen.titik.my.id/api/story', {
-                category_id: form?.category_id,
-                title: form?.title,
-                content: form?.content
-            })
+            await postData('/my-story', form)
             toast.success('Cerita berhasil dibuat!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -75,7 +70,7 @@ const CreateStory = () => {
                 progress: undefined,
                 theme: "colored",
             });
-            // router.push('/pages/indexTemp')
+            router.push('/pages/indexTemp')
         } catch (error) {
             toast.error('Cerita gagal dibuat!', {
                 position: "top-right",

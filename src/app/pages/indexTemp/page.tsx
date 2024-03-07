@@ -167,8 +167,8 @@ const Home = () => {
                                 <StoryCardSkeleton />
                                 <StoryCardSkeleton />
                             </>)}
-                            {!isLoadingStory && storyData && (
-                            <div className={`w-full h-[190px] flex flex-col gap-3 items-center justify-center ${paginationData?.totalPages < 1 && 'hidden'}`}>
+                            {/* {!isLoadingStory && storyData && (
+                            <div className={`w-full h-[190px] flex flex-col gap-3 items-center justify-center border-2 border-zinc-200 rounded-md border-dashed ${paginationData?.totalPages < 1 && 'hidden'}`}>
                                 <button className={`w-28 h-fit rounded-md bg-blue-500 text-white px-4 py-2 drop-shadow text-sm outline-none 
                                 ${paginationData?.limit >= paginationData?.totalItems && 'hidden'}
                                 `}
@@ -179,7 +179,24 @@ const Home = () => {
                                 `}
                                 onClick={() => setLimit(4)}>Muat Sedikit</button>
                             </div>
-                            )}
+                            )} */}
+                        </div>
+                    </div>
+                    {/* pagination */}
+                    <div className={`w-full h-[190px] flex flex-col justify-center items-center gap-y-3
+                    ${paginationData?.totalItems <= 4 && paginationData?.totalPages <= 1 && 'hidden'}
+                    `}>
+                        <div className={`
+                        ${paginationData?.limit >= paginationData?.totalItems && 'hidden'}
+                        `} onClick={() => setLimit(limit + 4)}>
+                            <Button content="Muat lebih" className="w-28" />
+                        </div>
+                        <div 
+                        className={`
+                        ${paginationData?.limit <= 4 && 'hidden'}
+                        `} 
+                        onClick={() => setLimit(4)}>
+                            <Button content="Muat Sedikit" className="w-28 bg-pink-500" />
                         </div>
                     </div>
 

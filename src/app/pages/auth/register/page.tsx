@@ -8,8 +8,7 @@ import { postData } from '@/utils/fetch'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify'
 
 const Register = () => {
 
@@ -120,7 +119,6 @@ const Register = () => {
             <div className="font-normal text-sm mt-3">Sudah punya akun? <Link href={"/pages/auth/login"} className='font-medium text-sm text-blue-600'>Masuk disini</Link></div>
           </form>
         </div>
-        <ToastContainer />
       </div>
     )
 }

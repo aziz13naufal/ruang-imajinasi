@@ -8,13 +8,12 @@ import dynamic from "next/dynamic";
 import { getData, postData } from '@/utils/fetch';
 import Select from 'react-select';
 import Button from '@/app/components/Button';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Footer from '@/app/components/Footer';
 import SuccessAlert from '@/app/components/alert/success-alert';
 import ErrorAlert from '@/app/components/alert/error-alert';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 const Editor = dynamic(() => import("@/app/components/CKEditor"), { ssr: false });
 
 const CreateStory = () => {
@@ -156,9 +155,6 @@ const CreateStory = () => {
                         </button>
                     </form>
                 </div>
-            </div>
-            <div className="text-white">
-                <ToastContainer />
             </div>
             <div className="">
                 <Footer />

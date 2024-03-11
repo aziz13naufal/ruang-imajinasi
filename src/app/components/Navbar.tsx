@@ -4,9 +4,8 @@ import Button from './Button'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { deleteData } from '@/utils/fetch';
-import { ToastContainer, toast } from 'react-toastify';
 import { deleteCookie } from 'cookies-next';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
 
@@ -55,12 +54,12 @@ const Navbar = () => {
     return (
         <div className="w-full flex justify-between border-b h-16 items-center px-7 fixed top-0 bg-white z-50">
             <div className="left-side flex gap-7">
-                <Link href={"/pages/indexTemp"} className="logo-title flex">
+                <Link href={"/"} className="logo-title flex">
                     <div className="text-pink-600">Ruang</div>
                     <div className="text-blue-600">Cerpen</div>
                 </Link>
                 <div className="menu hidden md:flex gap-5 items-center">
-                    <Link href="/pages/indexTemp" className="text-sm">Beranda</Link>
+                    <Link href="/" className="text-sm">Beranda</Link>
                     <div className="text-sm">Tentang Kami</div>
                 </div>
             </div>
@@ -77,7 +76,7 @@ const Navbar = () => {
 
                 <div className={`fixed top-0 right-0 mt-16 w-[60%] h-dvh bg-white z-20 border-l flex flex-col gap-2 md:hidden ${!toggleNavbar && 'hidden'}`}>
                     <div className="flex flex-col">
-                        <Link href="/pages/indexTemp" className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Beranda</Link>
+                        <Link href="/" className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Beranda</Link>
                         <div className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Tentang Kami</div>
                         {!user ? (
                             <div className=""
@@ -98,7 +97,6 @@ const Navbar = () => {
                         )}
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         </div>
   )

@@ -9,8 +9,7 @@ import { setCookie } from 'cookies-next'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify'
 
 const Login = () => {
     const router = useRouter()
@@ -95,8 +94,6 @@ const Login = () => {
           <div className="font-normal text-sm mt-3">Belum punya akun? <Link href={"/pages/auth/register"} className='font-medium text-sm text-blue-600'>Buat akun disini</Link></div>
         </form>
       </div>
-        <ToastContainer />
-
     </div>
   )
 }

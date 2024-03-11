@@ -1,197 +1,223 @@
 "use client"
 
-import Image from "next/image"
-import Header from "./components/Header"
-import Navbar from "./components/Navbar2"
-import ThumbsUpIcon from "./components/icon/thumbs-up"
-import CommentIcon from "./components/icon/comment"
-import LoveIcon from "./components/icon/love"
-import StoryCard from "./components/StoryCard"
-import React, { useState, useEffect } from 'react';
-import { EditorState, convertToRaw } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { useRouter } from "next/navigation"
-import { getData } from "@/utils/fetch"
-import Link from "next/link"
+import React, { useEffect, useState } from 'react'
+
+// icon
+import CommentIcon from '@/app/components/icon/comment'
+import EyeglassIcon from '@/app/components/icon/eyeglass'
+import LoveIcon from '@/app/components/icon/love'
+
+// component
+// library
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+
+// css
+import 'swiper/css'
+import 'swiper/css/pagination';
+import { getData } from '@/utils/fetch'
+import CrossIcon from '@/app/components/icon/cross-icon'
+import StoryCard from '@/app/components/StoryCard'
+import StoryCardSkeleton from '@/app/components/StoryCardSkeleton'
+import Button from '@/app/components/Button'
+import Navbar from '@/app/components/Navbar'
+import Link from 'next/link'
+import Footer from '@/app/components/Footer'
+
 
 const Home = () => {
 
-  const router = useRouter();
+  // useState
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingStory, setIsLoadingStory] = useState<boolean>(false);
+  const [isLoadingCategory, setIsLoadingCategory] = useState<boolean>(false);
+  const [indicator, setIndicator] = useState<boolean>(false);
+  const [page, setPage] = useState<any>(1);
+  const [limit, setLimit] = useState<any>(4);
+  const [paginationData, setPaginationData] = useState<any>({})
+  const [search, setSearch] = useState<any>("");
 
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isLoadingStory, setIsLoadingStory] = useState<boolean>(false)
-  const [isLoadingCategory, setIsLoadingCategory] = useState<boolean>(false)
-  const [indicator, setIndicator] = useState<boolean>(false)
-  const [searchToggle, setSearchToggle] = useState<boolean>(false)
-  const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(5)
-  const [search, setSearch] = useState("")
-  
-  const [story, setStory] = useState<any[]>([])
-  const [storyPage, setStoryPage] = useState<any>("")
-  const [category, setCategory] = useState<any[]>([])
+  console.log(paginationData)
 
-  const [isCategoryClicked, setIsCategoryClicked] = useState<boolean>(false);
-  const [categoryData, setCategoryData] = useState<any>()
+  const [categoryData, setCategoryData] = useState<any>();
+  const [storyData, setStoryData] = useState<any>();
 
-  // get story
-  useEffect(() => {
-    const getDataStory = async () => {
-      try {
-        setIsLoadingStory(true)
-        if(search == '') {
-          const {data} = await getData('/story', { page: page, limit: limit, category_id: categoryData?.id, q: search })
-          setStory(data.stories.items)
-          setStoryPage(data.pagination)
-        } else {
-          setTimeout(async () => {
-            const {data} = await getData('/story', { page: page, limit: limit, category_id: categoryData?.id, q: search })
-            setStory(data.stories.items)
-            setStoryPage(data.pagination)
-          }, 300);
-        }
-        setIsLoadingStory(false)
-      } catch (error) {
-        setIsLoadingStory(false)
-      }
-    }
-    getDataStory()
-  }, [page, limit, indicator, categoryData, search])
+  const [categoryTitle, setCategoryTitle] = useState<any>();
+  const [categoryId, setCategoryId] = useState<any>();
 
-  // get category
+  // useEffect
   useEffect(() => {
     const getDataCategory = async () => {
       try {
+        setIsLoading(true)
         setIsLoadingCategory(true)
-        const {data} = await getData('/category')
-        setCategory(data.categories.items)
+        const { data } = await getData('/category')
+        setCategoryData(data.categories.items)
+        setIsLoading(false)
         setIsLoadingCategory(false)
       } catch (error) {
+        setIsLoading(false)
         setIsLoadingCategory(false)
       }
     }
-    getDataCategory()
+    getDataCategory();
   }, [])
 
-  const handleMorePage = () => {
-    setLimit(limit +  3)
-    setIndicator(!indicator)
-  }
-
-  const handleLessPage = () => {
-    setLimit(5)
-    setIndicator(!indicator)
-  }
-
-  const handleClickCategory = (id?: string, title?: string) => {
-    setIsCategoryClicked(true)
-    setSearch('')
-    setCategoryData({
-      id, title
-    })
-  }
-
-  // console
+  useEffect(() => {
+    const getDataStory = async () => {
+      try {
+        setIsLoading(true)
+        setIsLoadingStory(true)
+        const { data } = await getData('/story', { page: page, limit: limit, q: search, category_id: categoryId })
+        setStoryData(data.stories.items)
+        setPaginationData({
+          totalItems: data.pagination.total_items,
+          totalPages: data.pagination.total_pages,
+          currentPage: data.pagination.current_page,
+          limit: data.pagination.limit,
+        })
+        setIsLoading(false)
+        setIsLoadingStory(false)
+      } catch (error) {
+        setIsLoading(false)
+        setIsLoadingStory(false)
+      }
+    }
+    getDataStory();
+  }, [page, limit, search, categoryId])
 
   return (
-    <div className="w-full h-full p-4 sm:p-6 flex justify-center bg-bg-primary relative">
-      <section className="w-full lg:w-[800px] h-full relative">
-          <Navbar />
-          <Header />
-        <main className="mt-20 flex flex-col w-full gap-y-20">
+    <div className='w-full relative'>
+      <div className="h-16">
+        <Navbar />
+      </div>
+
+
+      <div className="w-full flex justify-center bg-zinc-100">
+        <div className="w-full lg:w-[1000px] p-3 border-l border-r bg-white flex flex-col gap-7">
           {/* category */}
-          <div className="flex flex-col gap-y-6">
-            <div className="">Pilih Kategori Cerpen Favoritmu</div>
-            {/* category item */}
-            <div className="flex w-full items-center gap-4 overflow-x-auto pt-3">
-              {!isLoadingCategory && category?.map((item: any, index: any) => {
-                return (
-                  <div className="flex flex-col gap-3 items-center transition active:scale-95 shrink-0 relative" key={index}
-                  onClick={() => handleClickCategory(item?.id, item?.name)}
-                  >
-                    <img src="/images/eifel.png" alt="category" className="w-32 h-40 border-2 border-zinc-700 sm:hover:border-pink-500 cursor-pointer rounded-md object-cover shrink-0" />
-                    <div className="absolute bottom-0 w-full h-full bg-gradient-to-t from-[rgba(63,63,70,0.7)] via-transparent to-transparent rounded-b-md hover:opacity-0 smooth-animation cursor-pointer"></div>
-                    <div className="absolute bottom-0 left-0 mx-2 my-1 text-white font-normal">{item?.name}</div>
-                  </div>
-                )
-              })}
-              {/* loading skeleton */}
-              {isLoadingCategory && (<>
-                <div className="flex animate-pulse">
-                  <div className="w-32 h-40 bg-[#b99d51] cursor-pointer rounded-md object-cover shrink-0" />
-                </div>
-                <div className="flex animate-pulse">
-                  <div className="w-32 h-40 bg-[#b99d51] cursor-pointer rounded-md object-cover shrink-0" />
-                </div>
-              </>)}
-            </div>
-          </div>
-
-          {/* best short story */}
-          <div className="flex flex-col gap-y-6">
-            {/* best short story title */}
-            <div className="w-full flex items-center justify-between">
-              <div className="">Rekomendasi Cerpen {isCategoryClicked ? categoryData?.title : "Untukmu"}</div>
-                {isCategoryClicked ? (
-                  <button type='button' className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95 whitespace-nowrap"
-                  onClick={() => {
-                    setIsCategoryClicked(false)
-                    setCategoryData('')
-                    setLimit(5)
-                  }}
-                  >Lihat Semua</button>
-                ) : (
-                  <button type="button" className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95 whitespace-nowrap"
-                  onClick={() => {
-                    setSearchToggle(!searchToggle)
-                    setSearch('')
-                  }}>
-                    Cari
-                  </button>
-                )}
-            </div>
-
-            <div className={`search-input ${searchToggle == false && "hidden"} ${isCategoryClicked && 'hidden'}`}>
-              <input type="text" className="bg-bg-primary border border-orange-700 w-full rounded-md px-3 py-1 text-base outline-none" placeholder="Cari judul cerpen.." onChange={(e: any) => setSearch(e.target.value)}/>
-            </div>
-
-            {isLoadingStory ? (
-              <div className="w-full h-7 relative justify-center">
-                  <div className="loading-animation mx-auto" />
-              </div>
-            ) : (<>
-              {/* best short story card */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {story?.map((item: any, index: any) => {
-                  return (
-                    <Link href={{ pathname: '/pages/read/story', query: {slug: item?.slug} }} key={index}>
-                      <StoryCard title={item?.title} subtitle={item?.content} />
-                    </Link>
-                  )})}
-              </div>
-
-              {/* see more */}
-              {story.length >= 1 && (<>
-                <div className="w-full flex justify-center mt-6 gap-3">
-                  <button className={`bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95 ${storyPage?.total_pages != 1 && 
-               storyPage?.current_page != storyPage?.total_pages ? '' : 'hidden'}`}
-                  onClick={handleMorePage}
-                  >Muat Lebih</button>
-
-                  {storyPage?.total_pages > 1 && limit > 5 && (
-                    <button className="bg-orange-300 rounded-md px-3 py-[3px] border-2 border-orange-700 text-orange-700 cursor-pointer sm:hover:contrast-75 transition active:scale-95"
-                    onClick={handleLessPage}
-                    >Muat Sedikit</button>
-                  )}
-                </div>
-                </>)}
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={12}
+            pagination={{
+              clickable: true,
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 2
+              },
+              1024: {
+                slidesPerView: 3
+              }
+            }}
+            modules={[Pagination]}
+            className="w-full h-[190px]"
+          >
+            {categoryData?.map((item: any, index: any) => (
+              <SwiperSlide className='relative w-fit h-fit rounded-md overflow-clip shrink-0 drop-shadow' key={index}
+                onClick={() => {
+                  setCategoryId(item?.id)
+                  setCategoryTitle(item?.name)
+                  setLimit(4)
+                }}>
+                <img src="/images/eifel.png" alt="category" className='w-full h-full object-cover' />
+                <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-gradient-to-t bg-[rgba(0,0,0,0.13)] hover:opacity-0 cursor-pointer text-white smooth-animation">{item?.name}</div>
+              </SwiperSlide>
+            ))}
+            {!categoryData && (<>
+              <SwiperSlide className='relative w-fit h-fit rounded-md overflow-clip shrink-0 drop-shadow animate-pulse'>
+                <div className='w-full h-full object-cover bg-zinc-200'></div>
+              </SwiperSlide>
+              <SwiperSlide className='relative w-fit h-fit rounded-md overflow-clip shrink-0 drop-shadow animate-pulse'>
+                <div className='w-full h-full object-cover bg-zinc-200'></div>
+              </SwiperSlide>
+              <SwiperSlide className='relative w-fit h-fit rounded-md overflow-clip shrink-0 drop-shadow animate-pulse'>
+                <div className='w-full h-full object-cover bg-zinc-200'></div>
+              </SwiperSlide>
             </>)}
+          </Swiper>
+
+          {/* Story */}
+          <div className="w-full flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <div className="text-sm">{!categoryTitle ? "Baru Ditambahkan" : "Cerita Berdasarkan Kategori"}</div>
+              {categoryTitle && (
+                <div className=" bg-red-500 pl-2 pr-[2px] py-[2px] rounded-md flex items-center gap-3">
+                  <div className="text-sm text-white">{categoryTitle}</div>
+                  <div className="text-sm bg-white px-[6px] pb-[1px] rounded-[5px] text-red-500 cursor-pointer"
+                    onClick={() => {
+                      setCategoryTitle('')
+                      setCategoryId('')
+                    }}>x</div>
+                </div>
+              )}
+            </div>
+            <div className="gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {storyData?.map((item: any, index: any) => (
+                <div className="" key={index}>
+                  <StoryCard
+                    title={item?.title}
+                    content={item?.content}
+                  />
+                </div>
+              ))}
+              {!storyData && (<>
+                <StoryCardSkeleton />
+                <StoryCardSkeleton />
+                <StoryCardSkeleton />
+                <StoryCardSkeleton />
+              </>)}
+              {/* {!isLoadingStory && storyData && (
+                            <div className={`w-full h-[190px] flex flex-col gap-3 items-center justify-center border-2 border-zinc-200 rounded-md border-dashed ${paginationData?.totalPages < 1 && 'hidden'}`}>
+                                <button className={`w-28 h-fit rounded-md bg-blue-500 text-white px-4 py-2 drop-shadow text-sm outline-none 
+                                ${paginationData?.limit >= paginationData?.totalItems && 'hidden'}
+                                `}
+                                onClick={() => setLimit(limit + 4)}>Muat Lebih</button>
+                                
+                                <button className={`w-28 h-fit rounded-md bg-pink-500 text-white px-4 py-2 drop-shadow text-sm outline-none 
+                                ${paginationData?.limit <= 4 && 'hidden'}
+                                `}
+                                onClick={() => setLimit(4)}>Muat Sedikit</button>
+                            </div>
+                            )} */}
+            </div>
           </div>
-        </main>
-      </section>
+          {/* pagination */}
+          <div className={`w-full h-[190px] flex flex-col justify-center items-center gap-y-3
+                    ${paginationData?.totalItems <= 4 && paginationData?.totalPages <= 1 && 'hidden'}
+                    `}>
+            <div className={`
+                        ${paginationData?.limit >= paginationData?.totalItems && 'hidden'}
+                        `} onClick={() => setLimit(limit + 4)}>
+              <Button content="Muat lebih" className="w-28" />
+            </div>
+            <div
+              className={`
+                        ${paginationData?.limit <= 4 && 'hidden'}
+                        `}
+              onClick={() => setLimit(4)}>
+              <Button content="Muat Sedikit" className="w-28 bg-pink-500" />
+            </div>
+          </div>
+
+          {/* Create Story */}
+          <div className="w-full flex flex-col gap-3">
+            <div className="text-sm">Ingin Membuat Cerita juga?</div>
+
+            <div className="w-full flex flex-col items-center justify-center bg-blue-200 border-2 border-blue-500 border-dashed rounded-md py-10 gap-6 p-4">
+              <div className="text-center text-base md:text-lg">Ayo Buat Cerita dan Tunjukkan kepada Orang Lain!</div>
+              <Link href={'/pages/create-story'} className="h-fit rounded-md bg-blue-500 text-white px-4 py-2 drop-shadow text-sm outline-none">Buat Cerita Sekarang</Link>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div className="">
+        <Footer />
+      </div>
     </div>
   )
 }
+export default Home
 
-export default Home;

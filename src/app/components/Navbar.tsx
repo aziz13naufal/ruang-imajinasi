@@ -4,11 +4,11 @@ import Button from './Button'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { deleteData } from '@/utils/fetch';
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 import { toast } from 'react-toastify';
 
 const Navbar = () => {
-
+    const token = getCookie('token')
     const router = useRouter()
     const [user, setUser] = useState<any>()
 
@@ -37,6 +37,7 @@ const Navbar = () => {
                 progress: undefined,
                 theme: "colored",
             });
+            router.refresh()
         } catch (error) {
             toast.error('Logout gagal!', {
                 position: "top-right",
@@ -60,6 +61,7 @@ const Navbar = () => {
                 </Link>
                 <div className="menu hidden md:flex gap-5 items-center">
                     <Link href="/" className="text-sm">Beranda</Link>
+                    <Link href="/pages/create-story" className="text-sm">Buat Cerita</Link>
                     <div className="text-sm">Tentang Kami</div>
                 </div>
             </div>
@@ -77,8 +79,9 @@ const Navbar = () => {
                 <div className={`fixed top-0 right-0 mt-16 w-[60%] h-dvh bg-white z-20 border-l flex flex-col gap-2 md:hidden ${!toggleNavbar && 'hidden'}`}>
                     <div className="flex flex-col">
                         <Link href="/" className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Beranda</Link>
+                        <Link href="/pages/create-story" className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Buat Cerita</Link>
                         <div className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Tentang Kami</div>
-                        {!user ? (
+                        {!token ? (
                             <div className=""
                             onClick={() => {
                                 setToggleNavbar(!toggleNavbar)

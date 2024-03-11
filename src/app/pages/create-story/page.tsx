@@ -20,6 +20,13 @@ const CreateStory = () => {
 
     const router = useRouter()
 
+    const [user, setUser] = useState<any>()
+
+    useEffect(() => {
+        const user = localStorage.getItem('user')
+        setUser(user)
+    }, [])
+
     const [editorLoaded, setEditorLoaded] = useState(false);
     const [data, setData] = useState("");
     const [categoryData, setCategoryData] = useState<any[]>([]);
@@ -69,18 +76,31 @@ const CreateStory = () => {
                 progress: undefined,
                 theme: "colored",
             });
-            router.push('/pages/indexTemp')
+            router.push('/')
         } catch (error) {
-            toast.error('Cerita gagal dibuat!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
+            if(user) {
+                toast.error('Silahkan login kembali!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            } else {
+                toast.error('Cerita gagal dibuat!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
         }
     }
 

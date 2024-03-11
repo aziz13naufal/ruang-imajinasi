@@ -42,7 +42,7 @@ const Login = () => {
             });
             localStorage.setItem("user", JSON.stringify(data.user.item))
             setCookie('token', data.user.item.token)
-            router.push('/pages/indexTemp')
+            router.push('/')
         } catch (error) {
             toast.error('Login gagal!', {
                 position: "top-right",
@@ -60,7 +60,7 @@ const Login = () => {
   return (
     <div className="w-full h-dvh p-4 sm:p-6 flex items-center bg-white sm:bg-zinc-100 justify-center relative">
       <div className="sm:border sm:p-10 w-full sm:w-fit rounded-md sm:bg-white">
-        <Link href={"/pages/indexTemp"} className="logo-title flex w-full justify-center">
+        <Link href={"/"} className="logo-title flex w-full justify-center">
             <div className="text-pink-600">Ruang</div>
             <div className="text-blue-600">Cerpen</div>
         </Link>

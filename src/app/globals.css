@@ -5,7 +5,11 @@
 
 * {
   font-family: "Fredoka", sans-serif;
-  @apply text-lg font-normal text-zinc-700
+  @apply text-lg font-normal
+}
+
+body {
+  @apply text-zinc-700
 }
 
 .smooth-animation {

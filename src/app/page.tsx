@@ -182,29 +182,23 @@ const Home = () => {
                             )} */}
             </div>
           </div>
+
           {/* pagination */}
-          <div className={`w-full h-[190px] flex flex-col justify-center items-center gap-y-3
-                    ${paginationData?.totalItems <= 4 && paginationData?.totalPages <= 1 && 'hidden'}
-                    `}>
-            <div className={`
-                        ${paginationData?.limit >= paginationData?.totalItems && 'hidden'}
-                        `} onClick={() => setLimit(limit + 4)}>
-              <Button content="Muat lebih" className="w-28" />
+          {storyData && (
+            <div className={`w-full h-[190px] flex flex-col justify-center items-center gap-y-3 ${paginationData?.totalItems <= 4 && paginationData?.totalPages <= 1 && 'hidden'}`}>
+              <div className={`${paginationData?.limit >= paginationData?.totalItems && 'hidden'}`} onClick={() => setLimit(limit + 4)}>
+                <Button content="Muat lebih" className="w-28" />
+              </div>
+              <div className={`${paginationData?.limit <= 4 && 'hidden'}`} onClick={() => setLimit(4)}>
+                <Button content="Muat Sedikit" className="w-28 bg-pink-500" />
+              </div>
             </div>
-            <div
-              className={`
-                        ${paginationData?.limit <= 4 && 'hidden'}
-                        `}
-              onClick={() => setLimit(4)}>
-              <Button content="Muat Sedikit" className="w-28 bg-pink-500" />
-            </div>
-          </div>
+          )}
 
           {/* Create Story */}
           <div className="w-full flex flex-col gap-3">
             <div className="text-sm">Ingin Membuat Cerita juga?</div>
-
-            <div className="w-full flex flex-col items-center justify-center bg-blue-200 border-2 border-blue-500 border-dashed rounded-md py-10 gap-6 p-4">
+            <div className="w-full flex flex-col items-center justify-center bg-blue-600/10 border-2 border-blue-600 border-dashed rounded-md py-10 gap-6 p-4">
               <div className="text-center text-base md:text-lg">Ayo Buat Cerita dan Tunjukkan kepada Orang Lain!</div>
               <Link href={'/pages/create-story'} className="h-fit rounded-md bg-blue-500 text-white px-4 py-2 drop-shadow text-sm outline-none">Buat Cerita Sekarang</Link>
             </div>

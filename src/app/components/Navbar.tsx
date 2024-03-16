@@ -78,10 +78,10 @@ const Navbar = () => {
 
                 <div className={`fixed top-0 right-0 mt-16 w-[60%] h-dvh bg-white z-20 border-l flex flex-col gap-2 md:hidden ${!toggleNavbar && 'hidden'}`}>
                     <div className="flex flex-col">
-                        <Link href="/" className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Beranda</Link>
-                        <Link href="/pages/create-story" className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Buat Cerita</Link>
-                        <div className="text-sm w-full px-3 py-2 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Tentang Kami</div>
-                        {!token ? (
+                        <Link href="/" className="text-sm w-full px-3 py-4 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Beranda</Link>
+                        <Link href="/pages/create-story" className="text-sm w-full px-3 py-4 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Buat Cerita</Link>
+                        <div className="text-sm w-full px-3 py-4 border-b hover:bg-zinc-100 cursor-pointer smooth-animation" onClick={() => setToggleNavbar(!toggleNavbar)}>Tentang Kami</div>
+                        {/* {!token ? (
                             <div className=""
                             onClick={() => {
                                 setToggleNavbar(!toggleNavbar)
@@ -97,7 +97,7 @@ const Navbar = () => {
                             }}>
                                 <Button content={'Keluar'} className="w-full rounded-none bg-red-500 hover:bg-red-600 smooth-animation" />
                             </div>
-                        )}
+                        )} */}
                     </div>
                 </div>
             </div>

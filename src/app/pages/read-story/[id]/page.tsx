@@ -51,7 +51,7 @@ const ReadStory = () => {
                     <div className="w-full">
                         <div className="w-full text-center">
                             <div className="">{storyData?.title}</div>
-                            <div className="text-xs"> dibuat oleh: default</div>
+                            <div className="text-xs"> dibuat oleh: {storyData?.created_by}</div>
                         </div>
                     </div>
 

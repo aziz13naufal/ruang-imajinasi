@@ -157,7 +157,7 @@ const Home = () => {
                 <Link href={`/pages/read-story/${item.slug}`} className="" key={index}>
                   <StoryCard
                     title={item?.title}
-                    content={item?.content}
+                    content={item?.sinopsis}
                   />
                 </Link>
               ))}

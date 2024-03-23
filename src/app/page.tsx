@@ -154,12 +154,12 @@ const Home = () => {
             </div>
             <div className="gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {storyData?.map((item: any, index: any) => (
-                <div className="" key={index}>
+                <Link href={`/pages/read-story/${item.slug}`} className="" key={index}>
                   <StoryCard
                     title={item?.title}
                     content={item?.content}
                   />
-                </div>
+                </Link>
               ))}
               {!storyData && (<>
                 <StoryCardSkeleton />

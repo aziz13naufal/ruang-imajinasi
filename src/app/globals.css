@@ -28,6 +28,18 @@ body {
   animation: l3 1s infinite linear;
 }
 
+.small-text p,
+.small-text li,
+.small-text strong,
+.small-text i strong,
+.small-text strong i  {
+  @apply text-xs !important
+}
+
+p {
+  @apply text-sm
+}
+
 @keyframes l3 {
   20% {
     background-position: 0% 0%, 50% 50%, 100% 50%

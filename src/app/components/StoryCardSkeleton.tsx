@@ -5,7 +5,7 @@ import CommentIcon from './icon/comment'
 
 const StoryCardSkeleton = ({title, content}: any) => {
     return (
-        <div className="w-full h-[190px] bg-zinc-100 rounded-md shrink-0 p-2 flex gap-2 drop-shadow">
+        <div className="w-full h-[190px] bg-zinc-100 rounded-md shrink-0 p-2 flex gap-2">
             <div className="w-[120px] h-full bg-zinc-200 rounded-md shrink-0 object-cover animate-pulse"></div>
             <div className="flex flex-col justify-between w-full h-full gap-1 lg:gap-2">
                 <div className="w-full h-full overflow-hidden flex flex-col gap-2">
